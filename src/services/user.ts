@@ -9,34 +9,31 @@ export class UserService {
     this.#url = `http://localhost:${env.DB_PORT}/users`;
   }
 
-  async getUserList(): Promise<User[]> {
-    const response = await fetch(this.#url, { method: 'GET' });
-    const users = await response.json();
-
-    return users as unknown as User[];
+  async getUserList() {
+    return fetch(this.#url, { method: 'GET' });
   }
 
-  async createUser(user: Omit<User, 'id'>): Promise<User> {
+  async getUser(id: string) {
+    return fetch(`${this.#url}/${id}`, { method: 'GET' });
+  }
+
+  async createUser(user: Omit<User, 'id'>) {
     const record: User = { ...user, id: randomUUID() };
-    const response = await fetch(this.#url, {
+    return fetch(this.#url, {
       method: 'POST',
       body: JSON.stringify(record),
     });
-    const result = await response.json();
-    return result as unknown as User;
   }
 
-  async updateUser(id: string, user: Omit<User, 'id'>): Promise<User> {
+  async updateUser(id: string, user: Omit<User, 'id'>) {
     const record: User = { ...user, id };
-    const response = await fetch(this.#url, {
+    return fetch(`${this.#url}/${id}`, {
       method: 'PUT',
       body: JSON.stringify(record),
     });
-    const result = await response.json();
-    return result as unknown as User;
   }
 
-  getUser(id: string): User | undefined {
-    return;
+  async deleteUser(id: string) {
+    return fetch(`${this.#url}/${id}`, { method: 'DELETE' });
   }
 }

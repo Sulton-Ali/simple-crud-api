@@ -19,26 +19,27 @@ export async function handleUserRouting(
     const { pathname } = new URL(req.url!, `http://${req.headers.host}`);
     const params = match('/api/users/:id', pathname);
 
-    console.log('[User] ', pathname);
-    console.log('[User] ', params);
-
     if (/^\/api\/users(?:\/.*)?$/.test(pathname)) {
       const method = req.method?.toUpperCase();
       switch (method) {
         case 'GET': {
           params?.id
-            ? userController.getUserById(res, params.id)
+            ? userController.getUserById(req, res)
             : userController.getUserList(res);
           break;
         }
-        // case 'POST': {
-        //   await userController.createUser(req, res);
-        //   break;
-        // }
-        // case 'PUT': {
-        //   userController.updateUser(req, res);
-        //   break;
-        // }
+        case 'POST': {
+          await userController.createUser(req, res);
+          break;
+        }
+        case 'PUT': {
+          userController.updateUser(req, res);
+          break;
+        }
+        case 'DELETE': {
+          userController.deleteUser(req, res);
+          break;
+        }
         default: {
           sendJson(res, 404, {
             message: 'Requested url does not exist',
@@ -52,8 +53,6 @@ export async function handleUserRouting(
       });
     }
   } catch (e) {
-    console.log('[User] ', e);
-
     sendJson(res, 500, {
       message: 'Internal Server Error',
       error: e,

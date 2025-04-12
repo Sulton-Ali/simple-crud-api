@@ -24,7 +24,7 @@ export async function handleDatabaseRouting(
       switch (method) {
         case 'GET': {
           params?.id
-            ? databaseController.getUserById(res, params.id)
+            ? databaseController.getUserById(req, res)
             : databaseController.getUserList(res);
           break;
         }
@@ -34,6 +34,10 @@ export async function handleDatabaseRouting(
         }
         case 'PUT': {
           databaseController.updateUser(req, res);
+          break;
+        }
+        case 'DELETE': {
+          databaseController.deleteUser(req, res);
           break;
         }
         default: {
