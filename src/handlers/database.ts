@@ -14,7 +14,6 @@ export class DatabaseController {
 
   getUserList(res: ServerResponse) {
     const users = this.#databaseService.findUsers();
-    console.log('[Database]: ', users);
 
     sendJson(res, 200, users);
   }

@@ -10,7 +10,7 @@ export const env = {
 
   PORT: Number(process.env.PORT ?? 4000),
   DB_PORT: Number(process.env.DB_PORT ?? 3000),
-  IS_MULTI: false,
+  IS_MULTI: process.env.IS_MULTI ?? false,
 } as const;
 
 export const isDev = env.NODE_ENV === 'development';

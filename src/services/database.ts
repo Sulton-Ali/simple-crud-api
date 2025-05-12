@@ -31,7 +31,7 @@ export class DatabaseService {
 
     if (index !== -1) {
       const user = { ...this.#users[index] };
-      this.#users = this.#users.splice(index, 1);
+      this.#users.splice(index, 1);
       return user;
     } else {
       return null;

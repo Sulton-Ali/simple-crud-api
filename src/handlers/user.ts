@@ -12,7 +12,7 @@ export class UserController {
   }
 
   async getUserList(res: ServerResponse) {
-    console.log('[User]: ', 'called method getUserList');
+    console.log(`[User]: `, 'called method getUserList');
 
     const response = await this.#userService.getUserList();
     const users = await response.json();
@@ -31,7 +31,15 @@ export class UserController {
       return;
     }
     const response = await this.#userService.getUser(params?.id);
+    if (!Number(response.headers.get('Content-Length'))) {
+      sendJson(res, 404, {
+        message: `User with id ${params.id} not found`,
+      });
+      return;
+    }
     const user = await response.json();
+    console.log('[User]: Result from database ', user);
+
     sendJson(res, 200, user);
   }
 
@@ -59,15 +67,17 @@ export class UserController {
       params?.id,
       body as User,
     );
+
+    if (!Number(response.headers.get('Content-Length'))) {
+      sendJson(res, 404, {
+        message: `User with id ${params.id} not found`,
+      });
+      return;
+    }
+
     const updatedUser = await response.json();
 
-    if (!updatedUser) {
-      sendJson(res, 404, {
-        message: `User with id ${params.id} does not exist`,
-      });
-    } else {
-      sendJson(res, 200, updatedUser);
-    }
+    sendJson(res, 200, updatedUser);
   }
 
   async deleteUser(req: IncomingMessage, res: ServerResponse) {
@@ -81,14 +91,14 @@ export class UserController {
     }
 
     const response = await this.#userService.deleteUser(params.id);
-    const deletedUser = await response.json();
 
-    if (!deletedUser) {
+    if (!Number(response.headers.get('Content-Length'))) {
       sendJson(res, 404, {
-        message: `User with id ${params.id} does not exist`,
+        message: `User with id ${params.id} not found`,
       });
-    } else {
-      sendJson(res, 204);
+      return;
     }
+
+    sendJson(res, 204);
   }
 }

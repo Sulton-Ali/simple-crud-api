@@ -16,6 +16,8 @@ export async function handleUserRouting(
   res: ServerResponse,
 ) {
   try {
+    console.log(`PORT: ${process.env.PORT}`);
+
     const { pathname } = new URL(req.url!, `http://${req.headers.host}`);
     const params = match('/api/users/:id', pathname);
 
@@ -24,8 +26,8 @@ export async function handleUserRouting(
       switch (method) {
         case 'GET': {
           params?.id
-            ? userController.getUserById(req, res)
-            : userController.getUserList(res);
+            ? await userController.getUserById(req, res)
+            : await userController.getUserList(res);
           break;
         }
         case 'POST': {
@@ -33,11 +35,11 @@ export async function handleUserRouting(
           break;
         }
         case 'PUT': {
-          userController.updateUser(req, res);
+          await userController.updateUser(req, res);
           break;
         }
         case 'DELETE': {
-          userController.deleteUser(req, res);
+          await userController.deleteUser(req, res);
           break;
         }
         default: {
@@ -54,8 +56,7 @@ export async function handleUserRouting(
     }
   } catch (e) {
     sendJson(res, 500, {
-      message: 'Internal Server Error',
-      error: e,
+      message: 'Ooops! Something went wrong. Internal server error',
     });
   }
 }
