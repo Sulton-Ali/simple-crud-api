@@ -1,8 +1,8 @@
 import * as http from 'node:http';
-import { handleUserRouting } from './routes/user.ts';
-import { env } from './config/env.ts';
+import { handleUserRouting } from './routes/user';
+import { env } from './config/env';
 
-if (!env.IS_MULTI) {
+if (!Boolean(env.IS_MULTI)) {
   await import('./database');
 }
 

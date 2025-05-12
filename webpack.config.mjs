@@ -45,7 +45,7 @@ export default /** @type {import('webpack').Configuration} */ ({
         },
       }),
       new DotenvPlugin({
-        path: '.env',
+        path: '.env.production',
         systemvars: true,
       }),
     ],

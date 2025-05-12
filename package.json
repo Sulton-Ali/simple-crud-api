@@ -13,8 +13,8 @@
     "build": "npm run clean && npm run typecheck && npm run bundle",
     "start:dev": "tsx watch --env-file=.env.development src/standalone.ts",
     "start:dev:multi": "tsx watch --env-file=.env.development src/balancer.ts",
-    "start:standalone": "node --enable-source-maps build/standalone.bundle.js",
-    "start:balancer": "node --enable-source-maps build/balancer.bundle.js",
+    "start:standalone": "tsx --env-file=.env.production build/standalone.bundle.js",
+    "start:balancer": "tsx --env-file=.env.production build/balancer.bundle.js",
     "start:prod": "npm run build && npm run start:standalone",
     "start:prod:multi": "npm run build && npm run start:balancer"
   },
@@ -42,8 +42,5 @@
     "webpack": "^5.99.8",
     "webpack-cli": "^6.0.1",
     "webpack-node-externals": "^3.0.0"
-  },
-  "dependencies": {
-    "dotenv": "^16.5.0"
   }
 }

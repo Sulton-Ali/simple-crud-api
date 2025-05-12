@@ -9,10 +9,7 @@ if (cluster.isPrimary) {
 
   cluster.schedulingPolicy = cluster.SCHED_RR;
   cluster.setupPrimary({
-    exec:
-      env.NODE_ENV !== 'production'
-        ? 'src/standalone.ts'
-        : 'build/standalone.bundle.js',
+    exec: 'src/standalone',
   });
 
   const targets = Array.from({ length: WORKER_COUNT }, (_, i) => ({
@@ -51,11 +48,13 @@ if (cluster.isPrimary) {
   });
 
   targets.forEach((target) => {
-    cluster.fork({
+    const envVars = {
       ...env,
       IS_MULTI: true,
       PORT: target.port,
-    });
+    };
+
+    cluster.fork(envVars);
   });
 
   cluster.on('exit', (worker) => {
