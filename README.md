@@ -3,49 +3,57 @@
 #### This is simple CRUD(Create, Read, Update, Delete) API endpoints realased with Native Nodejs APIs in Typescript.
 
 #### External libraries that used:
+
 - webpack
 - webpack-cli
-- dotenv
 - eslint
 - prettier
 - eslint and webpack plugins
 
- ### Install
+### Install
 
- ```bash
- npm install
- ```
+```bash
+npm install
+```
 
- ### Run in development mode
+### Run in development mode
 
- #### Single instance
- ```bash
- npm run start:dev
- ```
- #### Cluster
- ```bash
- npm run start:dev:multi
- ```
+#### Single instance
 
- ### Run in production mode
+```bash
+npm run start:dev
+```
 
- #### Single instance
- ```bash
- npm run start:prod
- ```
- #### Cluster
- ```bash
- npm run start:prod:multi
- ```
+#### Cluster
 
- ### Additional command
+```bash
+npm run start:dev:multi
+```
 
- #### Linting with eslint
- ```bash
- npm run lint
- ```
+### Run in production mode
 
- #### Format code with prettier
- ```bash
- npm run format
- ```
+#### Single instance
+
+```bash
+npm run start:prod
+```
+
+#### Cluster
+
+```bash
+npm run start:prod:multi
+```
+
+### Additional command
+
+#### Linting with eslint
+
+```bash
+npm run lint
+```
+
+#### Format code with prettier
+
+```bash
+npm run format
+```
