@@ -1,0 +1,47 @@
+{
+  "name": "simple-crud-api",
+  "version": "1.0.0",
+  "description": "Rolling Scopes School Nodejs course Simple CRUD API task implementation by Sultonali Jalolov",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint \"src/**/*.ts\"",
+    "format": "prettier --write \"**/*.{ts,js,json,md}\"",
+    "clean": "rm -rf build",
+    "typecheck": "tsc --noEmit",
+    "bundle": "webpack --config webpack.config.mjs",
+    "build": "npm run clean && npm run typecheck && npm run bundle",
+    "start:dev": "tsx watch --env-file=.env.development src/standalone.ts",
+    "start:dev:multi": "tsx watch --env-file=.env.development src/balancer.ts",
+    "start:standalone": "tsx --env-file=.env.production build/standalone.bundle.js",
+    "start:balancer": "tsx --env-file=.env.production build/balancer.bundle.js",
+    "start:prod": "npm run build && npm run start:standalone",
+    "start:prod:multi": "npm run build && npm run start:balancer"
+  },
+  "keywords": [
+    "CRUD",
+    "API",
+    "Nodejs",
+    "Typescript"
+  ],
+  "author": "Sultonali Jalolov",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.15.17",
+    "@typescript-eslint/eslint-plugin": "^8.32.0",
+    "@typescript-eslint/parser": "^8.32.0",
+    "dotenv-webpack": "^8.1.0",
+    "eslint": "^9.26.0",
+    "eslint-plugin-prettier": "^5.4.0",
+    "fork-ts-checker-webpack-plugin": "^9.1.0",
+    "prettier": "^3.5.3",
+    "terser-webpack-plugin": "^5.3.14",
+    "ts-loader": "^9.5.2",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.32.1",
+    "webpack": "^5.99.8",
+    "webpack-cli": "^6.0.1",
+    "webpack-node-externals": "^3.0.0"
+  }
+}
